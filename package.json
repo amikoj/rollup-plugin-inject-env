@@ -1,0 +1,29 @@
+{
+  "name": "rollup-plugin-inject-env",
+  "version": "0.0.1",
+  "description": "parse env file config and inject to workspace.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amikoj/rollup-plugin-inject-env.git"
+  },
+  "keywords": [
+    "rollup",
+    "plugin",
+    "inject",
+    "env"
+  ],
+  "author": "amiko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/amikoj/rollup-plugin-inject-env/issues"
+  },
+  "homepage": "https://github.com/amikoj/rollup-plugin-inject-env#readme",
+  "dependencies": {
+    "rollup": "^4.22.5"
+  }
+}
