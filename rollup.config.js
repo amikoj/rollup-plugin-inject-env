@@ -4,11 +4,11 @@ export default {
     //打包出口
     output: [
       {
-        file: "lib/rollup-plugin-inject-env.es.js",
+        file: "lib/rollup-plugin-inejct-dotenv.es.js",
         format: "es"//esm模式 用作es6的import导入形式
       },
       {
-        file: "lib/rollup-plugin-inject-env.umd.js",
+        file: "lib/rollup-plugin-inejct-dotenv.umd.js",
         format: "umd",//umd模式 用作script标签引入形式
         name: "injectEnv"//umd模式需要配置全局变量名
       }
