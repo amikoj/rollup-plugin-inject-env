@@ -34,20 +34,21 @@ const { writeFileSync } = fs;
  * @param {Options} options - Plugin options object (optional)
  * @returns {Plugin}
  */
-function injectEnv (options) {
+function injectEnv(options) {
 
+    let addWatched = false // 是否添加监听
 
     const transformEnv = (env) => {
         const transformed = {};
         Object.keys(env).forEach(key => {
             const value = env[key];
-            if(/^\d+(\.\d+)?$/.test(value)){
+            if (/^\d+(\.\d+)?$/.test(value)) {
                 // 可以转成数字类型
                 transformed[key] = Number(value);
-            }else if( value === 'true' || value === 'false'){
+            } else if (value === 'true' || value === 'false') {
                 // 可以转成布尔类型
                 transformed[key] = Boolean(value);
-            }else {
+            } else {
                 // 其他类型都转成字符串类型
                 transformed[key] = String(value);
             }
@@ -69,7 +70,7 @@ function injectEnv (options) {
         options.dto = 'env.d.ts';
     }
 
-    if(typeof options.env === 'undefined'){
+    if (typeof options.env === 'undefined') {
         options.env = config({ path: options.path }).parsed || {}; // read .env file
     }
 
@@ -94,13 +95,13 @@ export interface GlobalEnv {
         Object.keys(options.env).forEach(key => {
             const value = options.env[key];
 
-            if(typeof value === 'number'){
+            if (typeof value === 'number') {
                 // 可以转成数字类型
                 envTypes += `   ${key}: number;\n`;
-            }else if(typeof value === 'boolean'){
+            } else if (typeof value === 'boolean') {
                 // 可以转成布尔类型
                 envTypes += `   ${key}: boolean;\n`;
-            }else {
+            } else {
                 // 其他类型都转成字符串类型
                 envTypes += `   ${key}: string;\n`;
             }
@@ -109,25 +110,28 @@ export interface GlobalEnv {
         envTypes += `}\n`;
 
         envTypes += `declare global{\n  const ENV: GlobalEnv;\n}\nexport {};`
-        
+
 
         const dtoPath = path.dirname(options.dto);
-        
 
-        if(dtoPath &&!path.isAbsolute(dtoPath)){
+
+        if (dtoPath && !path.isAbsolute(dtoPath)) {
             fs.mkdirSync(dtoPath, { recursive: true });
         }
-        
+
 
         // 写入dist/env.d.ts
         writeFileSync(options.dto, envTypes);
         console.log('rollup-plugin-inject-env global env types：', options.dto, ' generated successfully.');
     }
-
     return {
         name: 'rollup-plugin-inject-env',
         buildStart() {
-            this.addWatchFile(options.path); // listen to .env file changes
+            if (!addWatched) {
+                this.addWatchFile(options.path); // listen to .env file changes
+                addWatched = true
+            }
+            createEnvTypes();
         },
         renderChunk(code, chunk) {
             if (chunk.isEntry) {
@@ -135,12 +139,13 @@ export interface GlobalEnv {
                 return `window.ENV = ${JSON.stringify(options.env)};${code}`;
             }
         },
-        buildEnd(){
-            // generate type definition file for global environment variables
+        watchChange(id, change) {
             createEnvTypes();
+
         },
+
     }
-}   
+}
 
 
 module.exports = injectEnv;
