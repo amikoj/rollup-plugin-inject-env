@@ -22,8 +22,8 @@ const { writeFileSync } = fs;
 
 /**
  * @typedef {Object} Options
- * @property {string} [mode='development'] - Build mode
- * @property {string} [path='.env.development'] - Path to the environment variables file
+ * @property {string} [mode=''] - Build mode
+ * @property {string} [path='.env'] - Path to the environment variables file
  * @property {string} [dto='env.d.ts'] - Path to the generated type definition file
  * @property {ENV} [env] - Environment variables object (optional)
  */
@@ -61,10 +61,12 @@ function injectEnv(options) {
 
     if (options === void 0) options = {};
     if (typeof options.mode === 'undefined') {
-        options.mode = process.env.NODE_ENV || 'development';;
+        options.mode = process.env.NODE_ENV || '';;
     }
     if (typeof options.path === 'undefined') {
-        options.path = `.env.${options.mode}`;
+        if (options.mode)
+            options.path = `.env.${options.mode}`;
+        else options.path = '.env';
     }
     if (typeof options.dto === 'undefined') {
         options.dto = 'env.d.ts';
