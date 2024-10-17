@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-inejct-dotenv",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "parse env file config and inject to workspace.",
   "main": "index.js",
   "type": "module",
