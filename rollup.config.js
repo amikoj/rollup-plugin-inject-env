@@ -1,4 +1,3 @@
-import dts from "rollup-plugin-dts";
 import typescript from '@rollup/plugin-typescript';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
@@ -30,13 +29,4 @@ export default [{
     json(), // 转换 json 文件
   ]
 },
-// {
-//   input: "index.d.ts",//dts入口
-//   output: {
-//     file: "lib/rollup-plugin-inject-dotenv.d.ts",
-//     format: "es"
-//   },
-//   plugins: [dts()]//dts插件
-// }
-
 ];

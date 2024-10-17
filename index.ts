@@ -92,7 +92,7 @@ const injectEnv: Plugin<Options> = (options: Options = defaultOptions) => {
         name: "rollup-plugin-inject-dotenv",
         buildStart() {
             const c = config({ path: envFile }).parsed || {}
-            Object.assign(env,c)
+            Object.assign(env,transformEnv(c), {...env})
             createEnvTypes(env, dto);
 
             if (!addWatched) {
