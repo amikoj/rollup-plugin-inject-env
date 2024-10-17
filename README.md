@@ -1,4 +1,4 @@
-# rollup-plugin-inejct-dotenv 使用说明
+# rollup-plugin-inject-dotenv 使用说明
 基于rollup实现本地.env环境变量文件的注入， 支持.env.development和.env.production文件， 同时支持输出类型定义文件。
 
 
@@ -6,7 +6,7 @@
 ## 安装
 
 ```bash
-npm install --save-dev rollup-plugin-inejct-dotenv
+npm install --save-dev rollup-plugin-inject-dotenv
 ```
 
 ## 支持配置
@@ -20,7 +20,7 @@ npm install --save-dev rollup-plugin-inejct-dotenv
 
 ```js
 // rollup.config.js
-import injectEnv from 'rollup-plugin-inejct-dotenv';
+import injectEnv from 'rollup-plugin-inject-dotenv';
 
 export default {
   input: 'index.js',
@@ -41,4 +41,4 @@ export default {
 
 ## 注意事项
 - 若`.env`文件不存在，则不会注入任何环境变量
-- 需保证```rollup-plugin-inejct-dotenv``` 插件在解析前执行，否则可能导致环境变量未注入，建议放在```plugins```数组的第一个位置
+- 需保证```rollup-plugin-inject-dotenv``` 插件在解析前执行，否则可能导致环境变量未注入，建议放在```plugins```数组的第一个位置
