@@ -1,4 +1,4 @@
-# rollup-plugin-inejct-dotenv 擦火箭使用说明
+# rollup-plugin-inejct-dotenv 使用说明
 基于rollup实现本地.env环境变量文件的注入， 支持.env.development和.env.production文件， 同时支持输出类型定义文件。
 
 
