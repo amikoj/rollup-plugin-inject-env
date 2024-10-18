@@ -5,10 +5,9 @@
     "access": "public"
   },
   "description": "parse env file config and inject to workspace.",
-  "main": "./lib/index.cjs.js",
-  "module": "./lib/index.esm.js",
-  "types": "./lib/index.d.ts",
-  "type": "module",
+  "main": "lib/esm/index.js",
+  "module": "lib/ejs/index.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c"
@@ -18,10 +17,10 @@
     "url": "git+https://github.com/amikoj/rollup-plugin-inject-env.git"
   },
   "exports": {
-      "types": "./lib/index.d.ts",
-      "import": "./lib/index.esm.js",
-      "require": "./lib/index.cjs.js",
-      "default": "./lib/index.cjs.js"
+      "types": "types/index.d.ts",
+      "import": "lib/esm/index.js",
+      "require": "lib/cjs/index.js",
+      "default": "lib/cjs/index.js"
     },
   "keywords": [
     "rollup",

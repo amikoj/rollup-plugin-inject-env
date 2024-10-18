@@ -1,13 +1,17 @@
 import { Plugin } from "rollup";
-import { writeFileSync, mkdirSync } from 'node:fs'
-import * as nodePath from 'node:path'
+import { writeFileSync, mkdirSync } from 'fs'
+import * as nodePath from 'path'
 import { config } from 'dotenv'
-import { Options } from "./interface";
 
+export interface Options {
+    mode?: string; // development | production | test | etc.
+    dto?: string; // env.d.ts file path, 生成的dts文件路径
+    env?: Record<string, string | number | boolean>; // env variables, 附属环境变量
+    path?: string; // path to the env file, 环境变量文件路径
+}
 
-
-const transformEnv = (env) => {
-    const transformed = {};
+const transformEnv = (env: Record<string, any>) => {
+    const transformed: Record<string, any> = {};
     Object.keys(env).forEach(key => {
         const value = env[key];
         if (/^\d+(\.\d+)?$/.test(value)) {
@@ -25,7 +29,7 @@ const transformEnv = (env) => {
 }
 
 
-const createEnvTypes = (values, dto) => {
+const createEnvTypes = (values: Record<string, any>, dto: string) => {
     let envTypes = `/* eslint-disable */
 /**
 * ${dto}
@@ -82,7 +86,7 @@ const injectEnv: Plugin<Options> = (options: Options = defaultOptions) => {
     if (options.mode)  {
         options.path = `.env.${mode}`;
     }
-    const envFile = options.path // 环境变量文件路径
+    const envFile = path // 环境变量文件路径
     return {
         name: "rollup-plugin-inject-dotenv",
         buildStart() {
@@ -95,7 +99,7 @@ const injectEnv: Plugin<Options> = (options: Options = defaultOptions) => {
                 addWatched = true
             }
         },
-        renderChunk(code, chunk) {
+        renderChunk(code: string, chunk: { isEntry: boolean }): string {
             if (chunk.isEntry) {
                 // entry file needs to be modified to inject environment variables
                 return `window.ENV = ${JSON.stringify(env)};${code}`;
