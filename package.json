@@ -32,7 +32,8 @@
     "lib",
     "!lib/**/*.map",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "CHANGELOG.md"
   ],
   "author": "amiko",
   "license": "MIT",
@@ -46,13 +47,9 @@
   },
   "devDependencies": {
     "@rollup/plugin-babel": "^6.0.4",
-    "@rollup/plugin-commonjs": "^28.0.1",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^15.3.0",
     "@rollup/plugin-typescript": "^12.1.1",
     "@types/node": "^22.7.6",
     "rollup-plugin-dts": "^6.1.1",
-    "rollup-plugin-inject-dotenv": "link:",
     "tslib": "^2.8.0",
     "typescript": "^5.6.3"
   }
