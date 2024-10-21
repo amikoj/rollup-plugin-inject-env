@@ -1,5 +1,8 @@
 # rollup-plugin-inject-dotenv 插件变更日志
 
+## 0.0.3-beta
+- 测试github配置的action自动发布npm包
+
 ## v0.0.2
 - 新增支持github action自动发布npm包
 
