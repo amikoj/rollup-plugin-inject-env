@@ -2,7 +2,7 @@ import typescript from '@rollup/plugin-typescript';
 import babel from '@rollup/plugin-babel'
 import { readFileSync } from 'fs';
 import { builtinModules } from 'module';
-import { type } from 'os';
+import dts from 'rollup-plugin-dts';
 
 
 export function emitModulePackageFile() {
@@ -25,14 +25,14 @@ const external = Object.keys(pkg.dependencies || {})
   .concat(builtinModules);
 
 //rollup.config.js
-export default {
+export default [{
   input: "src/index.ts",//打包入口
   //打包出口
   output: [
     {
       file: pkg.main,
       format: "es",//esm模式 用作es6的import导入形式
-      plugins: [emitModulePackageFile(), typescript({ sourceMap: true, declarationDir: 'lib/esm', declaration: true })],
+      plugins: [emitModulePackageFile(),],
       sourcemap: true
     },
     {
@@ -41,16 +41,22 @@ export default {
       exports: "named",
       footer: 'module.exports = Object.assign(exports.default, exports);',
       sourcemap: true,
-      plugins: [typescript({ sourceMap: true })]
     }
   ],
   external: external,
   plugins: [
-
+    typescript({ sourceMap: true}),
     babel(),
   ],
   onwarn: (warning) => {
     throw Object.assign(new Error(), warning);
   },
   strictDeprecations: true,
-};
+},{
+  input: "src/index.ts",
+  output: {
+    format: "esm",
+    file:'lib/index.d.ts'
+  },
+  plugins: [dts()],
+}];

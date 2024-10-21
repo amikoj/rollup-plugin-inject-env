@@ -1,13 +1,13 @@
 {
   "name": "rollup-plugin-inject-dotenv",
-  "version": "0.0.1-beta",
+  "version": "0.0.2-beta",
   "publishConfig": {
     "access": "public"
   },
   "description": "parse env file config and inject to workspace.",
   "main": "lib/esm/index.js",
-  "module": "lib/ejs/index.js",
-  "types": "types/index.d.ts",
+  "module": "lib/cjs/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c"
@@ -17,11 +17,11 @@
     "url": "git+https://github.com/amikoj/rollup-plugin-inject-env.git"
   },
   "exports": {
-      "types": "types/index.d.ts",
-      "import": "lib/esm/index.js",
-      "require": "lib/cjs/index.js",
-      "default": "lib/cjs/index.js"
-    },
+    "types": "./lib/index.d.ts",
+    "import": "./lib/esm/index.js",
+    "require": "./lib/cjs/index.js",
+    "default": "./lib/cjs/index.js"
+  },
   "keywords": [
     "rollup",
     "plugin",
@@ -30,7 +30,7 @@
   ],
   "files": [
     "lib",
-    "!dist/**/*.map",
+    "!lib/**/*.map",
     "README.md",
     "LICENSE"
   ],
@@ -51,6 +51,7 @@
     "@rollup/plugin-node-resolve": "^15.3.0",
     "@rollup/plugin-typescript": "^12.1.1",
     "@types/node": "^22.7.6",
+    "rollup-plugin-dts": "^6.1.1",
     "rollup-plugin-inject-dotenv": "link:",
     "tslib": "^2.8.0",
     "typescript": "^5.6.3"
